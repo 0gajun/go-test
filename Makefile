@@ -2,7 +2,7 @@ SHELL := /bin/bash
 GO := GO15VENDOREXPERIMENT=1 go
 NAME := go-test
 OS := $(shell uname)
-MAIN_GO := hello.go
+MAIN_GO := main.go
 ROOT_PACKAGE := $(GIT_PROVIDER)/$(ORG)/$(NAME)
 GO_VERSION := $(shell $(GO) version | sed -e 's/^[^0-9.]*\([0-9.]*\).*/\1/')
 PACKAGE_DIRS := $(shell $(GO) list ./... | grep -v /vendor/)
@@ -18,7 +18,7 @@ check: fmt build test
 build:
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) build -ldflags $(BUILDFLAGS) -o bin/$(NAME) $(MAIN_GO)
 
-test: 
+test:
 	CGO_ENABLED=$(CGO_ENABLED) $(GO) test $(PACKAGE_DIRS) -test.v
 
 full: $(PKGS)
