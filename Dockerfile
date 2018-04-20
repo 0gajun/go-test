@@ -1,4 +1,4 @@
-FROM golang:alpine as builder
+FROM golang:alpine
 
 RUN mkdir /app
 WORKDIR /app
@@ -6,9 +6,5 @@ COPY . /app
 
 RUN go build -o main main.go
 
-FROM alpine
-
-COPY --from=builder /app/main /main
-
-CMD ["/main"]
+CMD ["/app/main"]
 
